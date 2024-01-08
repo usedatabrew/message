@@ -48,4 +48,10 @@ func (d Data) DropProperty(property string) {
 	d.jsonq = gojsonq.New().FromInterface(d.packet.Out())
 }
 
-func (d Data) MarshalJSON() {}
+func (d Data) JsonQ() *gojsonq.JSONQ{
+	return gojsonq.New().FromString(d.packet.JSON())
+}
+
+func (d Data) Where(prop string, op string, value interface{}) any {
+	return gojsonq.New().FromString(d.packet.JSON()).Where("[0]." + prop, op, value).First()
+}

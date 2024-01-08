@@ -1,6 +1,7 @@
 package message
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -34,4 +35,10 @@ func TestData_MarshalJSON(t *testing.T) {
 		"array": []interface{}{float64(1), float64(12), float64(33)},
 		"message": "1231",
 	}, props)
+}
+
+func TestData_Where(t *testing.T) {
+	msg := NewMessage(Snapshot, "flights", getTierMessage())
+	data := msg.Data.Where("mes.id", "=", 123)
+	fmt.Println(data)
 }
