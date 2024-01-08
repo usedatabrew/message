@@ -26,3 +26,12 @@ func TestData_DopProperty(t *testing.T) {
 	msg.Data.DropProperty("ai_result_1111")
 	assert.Equal(t, nil, msg.Data.AccessProperty("ai_result_1111"))
 }
+
+func TestData_MarshalJSON(t *testing.T) {
+	msg := NewMessage(Snapshot, "flights", getTierMessage())
+	props := msg.Data.AccessProperties([]string{"message", "array"})
+	assert.Equal(t, map[string]any{
+		"array": []interface{}{float64(1), float64(12), float64(33)},
+		"message": "1231",
+	}, props)
+}

@@ -27,6 +27,15 @@ func (d Data) AccessProperty(property string) interface{} {
 	return gojsonq.New().FromString(d.packet.JSON()).Find("[0]." + property)
 }
 
+func (d Data) AccessProperties(properties []string) interface{} {
+	var props []string
+	for _, p := range properties {
+		props = append(props, "[0]."+p)
+	}
+
+	return gojsonq.New().FromString(d.packet.JSON()).Select(props...).First()
+}
+
 // SetProperty appends top level property to the response
 // It requires copying the entire raw object
 func (d Data) SetProperty(property string, data string) {
@@ -38,3 +47,5 @@ func (d Data) DropProperty(property string) {
 	d.packet.Unset("[0]." + property)
 	d.jsonq = gojsonq.New().FromInterface(d.packet.Out())
 }
+
+func (d Data) MarshalJSON() {}
