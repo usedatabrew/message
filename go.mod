@@ -1,4 +1,4 @@
-module message
+module github.com/usedatabrew/message
 
 go 1.21
 
