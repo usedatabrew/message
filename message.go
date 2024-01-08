@@ -19,8 +19,16 @@ func NewMessage(event Event, stream string, data []byte) *Message {
 	}
 }
 
+func (m *Message) SetStream(stream string) {
+	m.Stream = stream
+}
+
 func (m *Message) GetStream() string {
 	return m.Stream
+}
+
+func (m *Message) SetEvent(event Event) {
+	m.Event = event
 }
 
 func (m *Message) GetEvent() Event {
